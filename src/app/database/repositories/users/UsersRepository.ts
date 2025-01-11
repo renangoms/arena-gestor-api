@@ -1,13 +1,21 @@
-import type { User } from '../../../entities/User';
 import { prismaClient } from '../../../libs/prismaClient';
-import type { IUsersRepository } from './UsersRepository.types';
+
+import type { User } from '../../../entities/User';
+import type {
+  IInputCreateUser,
+  IUsersRepository,
+} from './UsersRepository.types';
 
 export class UsersRepository implements IUsersRepository {
   findByEmail(email: string): Promise<User | null> {
-    // return prismaClient.user.findUnique({
-    //   where: { email },
-    // });
+    return prismaClient.user.findUnique({
+      where: { email },
+    });
+  }
 
-    return new Promise((resolve) => resolve(null));
+  create(input: IInputCreateUser): Promise<User> {
+    return prismaClient.user.create({
+      data: input,
+    });
   }
 }
