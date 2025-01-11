@@ -1,5 +1,6 @@
 import { ZodError, z } from 'zod';
 import { InvalidCredentials } from '../../../../errors/InvalidCredentials';
+import { parseSchema } from '../../../../libs/parseSchema';
 import type { IController } from '../../../../types/IController';
 import type { IRequest } from '../../../../types/IRequest';
 import type { IResponse } from '../../../../types/IResponse';
@@ -15,12 +16,16 @@ export class SignInController implements IController {
 
   async handle(request: IRequest): Promise<IResponse> {
     try {
-      const { email, password } = schema.parse(request.body);
+      const parsedBody = parseSchema(schema, request.body);
 
-      const { accessToken } = await this.signInService.execute({
-        email,
-        password,
-      });
+      if (!parsedBody.success) {
+        return {
+          body: { error: parsedBody.data.message },
+          statusCode: parsedBody.data.statusCode,
+        };
+      }
+
+      const { accessToken } = await this.signInService.execute(parsedBody.data);
 
       return {
         statusCode: 200,

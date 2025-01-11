@@ -8,7 +8,9 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "zod": "^3.24.1"
@@ -23,6 +25,7 @@
     "@types/node": "^22.10.5",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
+    "prisma": "^6.2.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
