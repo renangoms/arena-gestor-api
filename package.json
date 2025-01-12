@@ -13,6 +13,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.16",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -20,9 +21,10 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@types/bcryptjs": "^2.4.6",
-    "@types/express": "^5.0.0",
+    "@types/express": "4.17.21",
     "@types/jsonwebtoken": "^9.0.7",
-    "@types/node": "^22.10.5",
+    "@types/node": "22.10.2",
+    "@types/nodemailer": "^6.4.17",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "prisma": "^6.2.1",

@@ -3,6 +3,7 @@ import { prismaClient } from '../../../libs/prismaClient';
 import type { User } from '../../../entities/User';
 import type {
   IInputCreateUser,
+  IInputUpdateUser,
   IUsersRepository,
 } from './UsersRepository.types';
 
@@ -16,6 +17,13 @@ export class UsersRepository implements IUsersRepository {
   create(input: IInputCreateUser): Promise<User> {
     return prismaClient.user.create({
       data: input,
+    });
+  }
+
+  update(input: IInputUpdateUser): Promise<User> {
+    return prismaClient.user.update({
+      data: { password: input.password },
+      where: { id: input.id },
     });
   }
 }
