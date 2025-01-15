@@ -5,22 +5,29 @@ import type { IRequest } from '../../../../types/IRequest';
 import type { IResponse } from '../../../../types/IResponse';
 import type { ICreateSchedulesService } from '../../services/create-schedules/CreateSchedulesService.types';
 
-const schema = z.array(
-  z.object({
-    schedulePlanId: z.string().uuid(),
-    dayOfWeek: z.enum([
-      'MONDAY',
-      'TUESDAY',
-      'WEDNESDAY',
-      'THURSDAY',
-      'FRIDAY',
-      'SATURDAY',
-      'SUNDAY',
-    ]),
-    startTime: z.number(),
-    endTime: z.number(),
-  }),
-);
+const schema = z
+  .array(
+    z
+      .object({
+        schedulePlanId: z.string().uuid(),
+        dayOfWeek: z.enum([
+          'MONDAY',
+          'TUESDAY',
+          'WEDNESDAY',
+          'THURSDAY',
+          'FRIDAY',
+          'SATURDAY',
+          'SUNDAY',
+        ]),
+        startTime: z.number(),
+        endTime: z.number(),
+      })
+      .refine((data) => data.endTime < 1440, {
+        message: 'The maximum end time is 1440 (24-hour format).',
+        path: ['endTime'],
+      }),
+  )
+  .min(1);
 
 export class CreateSchedulesController implements IController {
   constructor(
