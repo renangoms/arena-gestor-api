@@ -39,3 +39,42 @@ model Court {
 
   @@map("courts")
 }
+
+model SchedulePlan {
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String
+  startDate DateTime   @map("start_date")
+  endDate   DateTime   @map("end_date")
+  active    Boolean    @default(false)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  schedules Schedule[]
+
+  @@map("schedule_plans")
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+
+  @@map("day_of_week")
+}
+
+model Schedule {
+  id             String    @id @default(uuid()) @db.Uuid
+  schedulePlanId String    @map("schedule_plan_id") @db.Uuid
+  dayOfWeek      DayOfWeek @map("day_of_week")
+  startTime      Int       @map("start_time")
+  endTime        Int       @map("end_time")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  schedule_plan SchedulePlan @relation(fields: [schedulePlanId], references: [id])
+
+  @@map("schedules")
+}

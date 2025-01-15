@@ -1,4 +1,4 @@
-import { type ZodSchema, z } from 'zod';
+import type { ZodSchema } from 'zod';
 
 type ParseResult<T> =
   | { success: true; data: T }
